@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Github, Linkedin, Mail } from 'lucide-react';
 
 const navLinks = [
     { name: 'About', href: '#about' },
@@ -9,6 +9,12 @@ const navLinks = [
     { name: 'Projects', href: '#projects' },
     { name: 'Resume', href: '#resume' },
     { name: 'Contact', href: '#contact' },
+];
+
+const mobileSocials = [
+    { icon: <Github size={20} />, href: 'https://github.com/Gani2604', label: 'GitHub' },
+    { icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/in/devulapelli-ganesh-435a88280', label: 'LinkedIn' },
+    { icon: <Mail size={20} />, href: 'mailto:devulapelliganesh62@gmail.com', label: 'Email' },
 ];
 
 export default function Navbar() {
@@ -24,7 +30,6 @@ export default function Navbar() {
             let current = 'home';
             sections.forEach(section => {
                 const sectionTop = (section as HTMLElement).offsetTop;
-                // Offset of 200px so it triggers slightly before hitting the top of the screen
                 if (window.scrollY >= sectionTop - 200) {
                     current = section.getAttribute('id') || 'home';
                 }
@@ -33,7 +38,7 @@ export default function Navbar() {
         };
         
         window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Trigger instantly on load 
+        handleScroll(); 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -51,17 +56,32 @@ export default function Navbar() {
                 </a>
             </div>
 
-            {/* Floating Pill Center Nav */}
+            {/* Top Right Mobile Menu Toggle (Pinned) */}
+            <div className="absolute top-6 right-6 pointer-events-auto md:hidden">
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="p-2 rounded-full border transition-all duration-300"
+                    style={{ 
+                        backgroundColor: 'rgba(20, 21, 22, 0.8)', 
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        color: 'var(--text-primary)'
+                    }}
+                    aria-label="Toggle menu"
+                >
+                    {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </button>
+            </div>
+
+            {/* Floating Pill Center Nav (Desktop Only) */}
             <nav
-                className={`relative mx-auto w-fit pointer-events-auto transition-all duration-300 rounded-full border flex items-center px-6 shadow-2xl ${scrolled ? 'py-3' : 'py-4'}`}
+                className={`relative mx-auto w-fit pointer-events-auto transition-all duration-300 rounded-full border hidden md:flex items-center px-6 shadow-2xl ${scrolled ? 'py-3' : 'py-4'}`}
                 style={{ 
                     backgroundColor: 'rgba(20, 21, 22, 0.65)', 
                     backdropFilter: 'blur(16px)', 
                     borderColor: 'rgba(255, 255, 255, 0.08)' 
                 }}
             >
-                {/* Desktop links */}
-                <div className="hidden md:flex items-center gap-7">
+                <div className="flex items-center gap-7">
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.href.substring(1);
                         return (
@@ -95,16 +115,6 @@ export default function Navbar() {
                         <ArrowUpRight size={13} />
                     </a>
                 </div>
-
-                {/* Mobile hamburger */}
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    style={{ color: 'var(--text-secondary)' }}
-                    className="md:hidden focus:outline-none transition-colors ml-4"
-                    aria-label="Toggle menu"
-                >
-                    {isOpen ? <X size={20} /> : <Menu size={20} />}
-                </button>
             </nav>
 
             {/* Mobile menu (Floating dropdown) */}
@@ -114,31 +124,56 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="md:hidden fixed top-[5rem] inset-x-4 max-w-sm mx-auto rounded-2xl border overflow-hidden shadow-2xl pointer-events-auto z-[60]"
+                        className="md:hidden fixed top-[5.5rem] inset-x-4 max-w-sm mx-auto rounded-2xl border overflow-hidden shadow-2xl pointer-events-auto z-[60]"
                         style={{ backgroundColor: 'rgba(15, 16, 18, 0.98)', backdropFilter: 'blur(20px)', borderColor: 'rgba(255, 255, 255, 0.1)' }}
                     >
-                        <div className="px-5 py-4 flex flex-col items-center">
-                            {navLinks.map((link) => (
-                                <a
-                                    key={link.name}
-                                    href={link.href}
-                                    onClick={() => setIsOpen(false)}
-                                    className="block w-full text-center px-3 py-3 text-sm font-medium transition-colors"
-                                    style={{ color: 'var(--text-secondary)' }}
-                                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)')}
-                                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = 'transparent')}
-                                >
-                                    {link.name}
-                                </a>
-                            ))}
+                        <div className="px-5 py-6 flex flex-col items-center">
+                            {navLinks.map((link) => {
+                                const isActive = activeSection === link.href.substring(1);
+                                return (
+                                    <a
+                                        key={link.name}
+                                        href={link.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className="block w-full text-center px-3 py-3 text-sm font-medium transition-colors"
+                                        style={{ 
+                                            color: isActive ? 'var(--neon)' : 'var(--text-secondary)',
+                                            textShadow: isActive ? '0 0 10px rgba(0, 255, 133, 0.3)' : 'none'
+                                        }}
+                                        onMouseEnter={e => (!isActive && (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)'))}
+                                        onMouseLeave={e => (!isActive && (e.currentTarget.style.backgroundColor = 'transparent'))}
+                                    >
+                                        {link.name}
+                                    </a>
+                                );
+                            })}
                             <a
                                 href="#contact"
                                 onClick={() => setIsOpen(false)}
-                                className="block w-full text-center mt-3 px-3 py-3 text-sm font-bold uppercase tracking-widest rounded-lg border transition-colors"
+                                className="block w-full text-center mt-3 px-3 py-4 text-sm font-bold uppercase tracking-widest rounded-xl border transition-all duration-300"
                                 style={{ color: '#fff', backgroundColor: 'var(--neon-dim)', borderColor: 'var(--neon)' }}
+                                onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--neon)'; e.currentTarget.style.color = '#000'; }}
+                                onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--neon-dim)'; e.currentTarget.style.color = '#fff'; }}
                             >
                                 Hire me
                             </a>
+
+                            {/* Mobile Socials */}
+                            <div className="mt-8 pt-6 border-t w-full flex justify-center gap-6" style={{ borderColor: 'rgba(255, 255, 255, 0.05)' }}>
+                                {mobileSocials.map((social) => (
+                                    <a
+                                        key={social.label}
+                                        href={social.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{ color: 'var(--text-muted)' }}
+                                        onMouseEnter={e => (e.currentTarget.style.color = 'var(--neon)')}
+                                        onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
+                                    >
+                                        {social.icon}
+                                    </a>
+                                ))}
+                            </div>
                         </div>
                     </motion.div>
                 )}

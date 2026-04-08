@@ -115,11 +115,11 @@ export default function ProjectsSection() {
                         >
                             {/* Left side: Image */}
                             <motion.div 
-                                className="w-full md:w-3/5 md:h-auto overflow-hidden bg-[#0c0d10] border-b md:border-b-0 md:border-r flex items-center justify-center relative p-6 cursor-default" 
-                                style={{ borderColor: 'var(--border-base)' }}
-                                initial={{ opacity: 0, x: -50 }}
+                                initial={{ opacity: 0, x: -15 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, ease: "easeOut" }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                                className="w-full md:w-3/5 md:h-auto overflow-hidden bg-[#0c0d10] border-b md:border-b-0 md:border-r flex items-center justify-center relative p-6 cursor-default transform-gpu" 
+                                style={{ borderColor: 'var(--border-base)' }}
                             >
                                 <img
                                     src={selectedProject.image}
@@ -130,11 +130,11 @@ export default function ProjectsSection() {
 
                             {/* Right side: Content */}
                             <motion.div 
-                                className="w-full md:w-2/5 flex flex-col overflow-y-auto cursor-default" 
-                                style={{ backgroundColor: 'var(--bg-card)' }}
-                                initial={{ opacity: 0, x: -50 }}
+                                initial={{ opacity: 0, x: -15 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+                                transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
+                                className="w-full md:w-2/5 flex flex-col overflow-y-auto cursor-default transform-gpu" 
+                                style={{ backgroundColor: 'var(--bg-card)', backdropFilter: 'blur(12px)' }}
                             >
                                 <div className="p-8 md:p-10 flex flex-col flex-1">
                                     <div className="inline-block px-3 py-1 rounded-sm text-[10px] font-bold tracking-[0.2em] mb-6 uppercase w-fit" style={{ color: 'var(--neon)', backgroundColor: 'var(--neon-dim)' }}>

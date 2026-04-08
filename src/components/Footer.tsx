@@ -38,12 +38,13 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <nav className="flex flex-wrap gap-6">
+                    <nav className="flex flex-col gap-4">
+                        <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-2" style={{ color: 'var(--text-primary)' }}>Quick Links</p>
                         {navLinks.map(link => (
                             <a
                                 key={link.name}
                                 href={link.href}
-                                className="text-xs font-medium transition-colors duration-200 uppercase tracking-widest"
+                                className="text-xs font-medium transition-colors duration-200 uppercase tracking-widest w-fit"
                                 style={{ color: 'var(--text-muted)', letterSpacing: '0.1em' }}
                                 onMouseEnter={e => (e.currentTarget.style.color = 'var(--neon)')}
                                 onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}

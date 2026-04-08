@@ -157,19 +157,44 @@ export default function HeroSection() {
                     </a>
                 </motion.div>
 
-                {/* Bottom meta bar */}
+                {/* Bottom meta bar & Mobile Socials */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6, delay: 0.8 }}
-                    className="absolute bottom-10 left-6 sm:left-10 lg:left-16 flex items-center gap-6"
+                    className="absolute bottom-10 inset-x-6 sm:inset-x-10 lg:inset-x-16 flex flex-col md:flex-row justify-between items-center gap-6"
                     style={{ color: 'var(--text-muted)', fontSize: '0.72rem', letterSpacing: '0.1em' }}
                 >
-                    <span className="uppercase">Hyderabad, India</span>
-                    <span style={{ width: 1, height: 14, backgroundColor: 'var(--border-base)', display: 'inline-block' }} />
-                    <span>CSE @ MGIT</span>
-                    <span style={{ width: 1, height: 14, backgroundColor: 'var(--border-base)', display: 'inline-block' }} />
-                    <span>© 2026 Ganesh Devulapelli</span>
+                    <div className="flex items-center gap-6">
+                        <span className="uppercase">Hyderabad, India</span>
+                        <span style={{ width: 1, height: 14, backgroundColor: 'var(--border-base)', display: 'inline-block' }} />
+                        <span>CSE @ MGIT</span>
+                        <span style={{ width: 1, height: 14, backgroundColor: 'var(--border-base)', display: 'inline-block' }} />
+                        <span className="hidden sm:inline">© 2026 Ganesh Devulapelli</span>
+                    </div>
+
+                    {/* Mobile only horizontal socials */}
+                    <div className="flex xl:hidden items-center gap-6 pt-2 md:pt-0">
+                        {[
+                            { href: 'https://github.com/Gani2604', icon: <Github size={20} />, label: 'GitHub' },
+                            { href: 'https://www.linkedin.com/in/devulapelli-ganesh-435a88280', icon: <Linkedin size={20} />, label: 'LinkedIn' },
+                            { href: 'mailto:devulapelliganesh62@gmail.com', icon: <Mail size={20} />, label: 'Email' },
+                        ].map(s => (
+                            <a
+                                key={s.label}
+                                href={s.href}
+                                target={s.href.startsWith('http') ? '_blank' : undefined}
+                                rel="noopener noreferrer"
+                                aria-label={s.label}
+                                className="transition-colors duration-200"
+                                style={{ color: 'var(--text-primary)' }}
+                                onMouseEnter={e => { e.currentTarget.style.color = 'var(--neon)'; }}
+                                onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-primary)'; }}
+                            >
+                                {s.icon}
+                            </a>
+                        ))}
+                    </div>
                 </motion.div>
 
             </div>

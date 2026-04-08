@@ -98,14 +98,14 @@ export default function ExperienceSection() {
                         >
                             {/* Left side: Logo */}
                             <motion.div 
-                                className="w-full md:w-2/5 h-48 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r flex items-center justify-center p-8 relative cursor-default" 
+                                initial={{ opacity: 0, x: -15 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.3, ease: "easeOut" }}
+                                className="w-full md:w-2/5 h-48 md:h-auto overflow-hidden border-b md:border-b-0 md:border-r flex items-center justify-center p-8 relative cursor-default transform-gpu" 
                                 style={{ 
                                     background: selectedExperience.bgLogo,
                                     borderColor: 'var(--border-base)' 
                                 }}
-                                initial={{ opacity: 0, x: -50 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, ease: "easeOut" }}
                             >
                                 {/* subtle decorative background grid lines */}
                                 <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
@@ -119,11 +119,11 @@ export default function ExperienceSection() {
 
                             {/* Right side: Content */}
                             <motion.div 
-                                className="w-full md:w-3/5 flex flex-col overflow-y-auto cursor-default" 
-                                style={{ backgroundColor: 'var(--bg-card)' }}
-                                initial={{ opacity: 0, x: -50 }}
+                                initial={{ opacity: 0, x: -15 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
+                                transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
+                                className="w-full md:w-3/5 flex flex-col overflow-y-auto cursor-default transform-gpu" 
+                                style={{ backgroundColor: 'var(--bg-card)', backdropFilter: 'blur(12px)' }}
                             >
                                 <div className="p-8 md:p-10 flex flex-col flex-1">
                                     <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
