@@ -114,8 +114,8 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: -10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        className="md:hidden absolute top-[4.5rem] left-1/2 -translate-x-1/2 w-[90%] max-w-sm rounded-2xl border overflow-hidden shadow-2xl pointer-events-auto"
-                        style={{ backgroundColor: 'rgba(15, 16, 18, 0.95)', backdropFilter: 'blur(20px)', borderColor: 'rgba(255, 255, 255, 0.1)' }}
+                        className="md:hidden fixed top-[5rem] inset-x-4 max-w-sm mx-auto rounded-2xl border overflow-hidden shadow-2xl pointer-events-auto z-[60]"
+                        style={{ backgroundColor: 'rgba(15, 16, 18, 0.98)', backdropFilter: 'blur(20px)', borderColor: 'rgba(255, 255, 255, 0.1)' }}
                     >
                         <div className="px-5 py-4 flex flex-col items-center">
                             {navLinks.map((link) => (
