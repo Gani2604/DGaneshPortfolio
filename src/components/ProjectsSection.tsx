@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ArrowUpRight, X, Image as ImageIcon, Layout } from 'lucide-react';
+import { ArrowUpRight, X, Image as ImageIcon, Layout } from 'lucide-react';
 
 export default function ProjectsSection() {
     type Project = {
