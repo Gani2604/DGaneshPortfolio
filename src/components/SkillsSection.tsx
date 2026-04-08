@@ -135,10 +135,6 @@ export default function SkillsSection() {
                         </motion.div>
                     ))}
                 </div>
-
-                <p className="text-center mt-10 text-sm" style={{ color: 'var(--text-muted)' }}>
-                    Hover over an icon to see the skill name
-                </p>
             </div>
         </section>
     );
