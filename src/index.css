@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════
+   MONOGRAM DARK THEME  +  ACCENT LAYER
+   Base: #000 / #FFF  ·  Neon: #00ff85  ·  Gradient: blue→purple
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Core Monogram colours ── */
+  --bg-primary:     #151617;   /* authentic Monogram soft charcoal black */
+  --bg-secondary:   #1a1c1d;   /* slightly lighter for alt sections */
+  --bg-card:        #202224;   /* card surface — visible depth */
+  --border-base:    #303336;   /* distinct visible border */
+  --border-hover:   rgba(255, 255, 255, 0.20);
+  --text-primary:   #FFFFFF;
+  --text-secondary: #e0e6ed;
+  --text-muted:     #9ba8b3;
+  --accent:         #ABB8C3;
+  --accent-dim:     rgba(171, 184, 195, 0.08);
+  --shadow-soft:    rgba(0, 0, 0, 0.30);
+
+  /* ── Accent layer ── */
+  --neon:           #0be689;          /* Monogram's signature emerald/mint green */
+  --neon-dim:       rgba(11, 230, 137, 0.12);
+  --neon-glow:      rgba(11, 230, 137, 0.25);
+  --grad-start:     #4f8ef7;          /* blue */
+  --grad-end:       #a855f7;          /* purple */
+  --grad-h:         linear-gradient(135deg, #4f8ef7 0%, #a855f7 100%);
+  --grad-text:      linear-gradient(110deg, #4f8ef7 0%, #a855f7 60%, #00ff85 100%);
+
+  /* ── Typography ── */
+  --font-sans:  'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'JetBrains Mono', 'Fira Code', monospace;
+
+  /* ── Scale ── */
+  --text-hero:   clamp(2.5rem, 5vw, 4.5rem);
+  --text-h2:     clamp(2rem, 4vw, 3rem);
+}
+
+.section-white {
+  background-color: var(--bg-secondary);
+  color: #ABB8C3;
+}
+.section-dark {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════ */
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ── Custom Text Selection ── */
+  ::selection {
+    background-color: var(--neon);
+    color: #000000;
+    text-shadow: none;
+  }
+
+  /* Global Grain Overlay */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+
+  code, pre, .font-mono { font-family: var(--font-mono); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════ */
+@layer utilities {
+
+  /* ── Hero font size ── */
+  .text-hero { font-size: var(--text-hero); }
+
+  /* ── Gradient text: blue → purple → neon ── */
+  .text-gradient {
+    background: var(--grad-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Blue → purple only (headings, labels) ── */
+  .text-gradient-purple {
+    background: var(--grad-h);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Section meta label ── */
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-base);
+    padding: 0.35rem 0.85rem;
+    border-radius: 9999px;
+  }
+
+  /* ── Monogram card ── */
+  .glow-box {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-base);
+    @apply relative p-6 rounded-2xl transition-all duration-300;
+  }
+  .glow-box:hover {
+    border-color: rgba(79, 142, 247, 0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(79, 142, 247, 0.08);
+  }
+
+  /* ── Thin divider ── */
+  .mono-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-base) 0%, transparent 100%);
+    flex-grow: 1;
+    margin-left: 1rem;
+  }
+
+  /* ── Status badge ── */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .status-badge .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--neon);        /* neon green pulse */
+    box-shadow: 0 0 8px var(--neon-glow);
+    animation: pulse-dot 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px var(--neon-glow); }
+    50%       { opacity: 0.6; transform: scale(0.8); box-shadow: 0 0 4px transparent; }
+  }
+
+  /* ─────────────────────────────────────────
+     BUTTONS
+  ───────────────────────────────────────── */
+
+  /* Primary: neon green → black text, glows on hover */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--neon);
+    color: #000000;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border-radius: 999px;
+    border: 1px solid var(--neon);
+    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 0 0 rgba(0, 255, 133, 0);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    color: var(--neon);
+    box-shadow: 0 0 24px var(--neon-glow);
+  }
+
+  /* Outline: white border, transparent bg */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    border-radius: 999px;
+    border: 1px solid var(--border-base);
+    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-outline:hover {
+    border-color: var(--neon);
+    color: var(--neon);
+    box-shadow: 0 0 16px var(--neon-dim);
+  }
+
+  /* Ghost neon: neon outline + transparent bg → fills on hover */
+  .btn-neon {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: transparent;
+    color: var(--neon);
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 999px;
+    border: 1px solid var(--neon);
+    transition: all 0.25s ease;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn-neon:hover {
+    background: var(--neon);
+    color: #000;
+    box-shadow: 0 0 24px var(--neon-glow);
+  }
+
+  /* ── Gradient blob decoration ── */
+  .gradient-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Section spacing ── */
+  .section-primary   { background-color: var(--bg-primary); }
+  .section-secondary { background-color: var(--bg-secondary); }
+
+  /* ── Custom Scrollbar ── */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1c1c1e; 
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-dim); 
+  }
+}
